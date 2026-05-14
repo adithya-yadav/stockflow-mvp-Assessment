@@ -8,7 +8,13 @@ import settingsRoutes from './modules/settings/settings.routes'
 
 const app = express()
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://graceful-kangaroo-80b1af.netlify.app',
+  ],
+  credentials: true,
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
