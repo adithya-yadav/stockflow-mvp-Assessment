@@ -1,19 +1,24 @@
-import express from "express";
-import cors from "cors";
+import express from 'express'
+import cors from 'cors'
 
-const app = express();
+import authRoutes from './modules/auth/auth.routes'
+import productRoutes from './modules/products/product.routes'
+import dashboardRoutes from './modules/dashboard/dashboard.routes'
+import settingsRoutes from './modules/settings/settings.routes'
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const app = express()
 
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-app.get("/", (_req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "setup working",
-  });
-});
+app.use('/api/auth', authRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/dashboard', dashboardRoutes)
+app.use('/api/settings', settingsRoutes)
 
+app.get('/', (_req, res) => {
+  res.status(200).json({ success: true, message: 'StockFlow API running' })
+})
 
-export default app;
+export default app
