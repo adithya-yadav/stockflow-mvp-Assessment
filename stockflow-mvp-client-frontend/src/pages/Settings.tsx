@@ -29,19 +29,19 @@ export default function Settings() {
   }
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
+    <div className="p-4 sm:p-8 max-w-2xl mx-auto">
+      <div className="flex items-center gap-3 mb-6 sm:mb-8">
+        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center shrink-0">
           <Settings2 size={20} className="text-slate-600" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Settings</h1>
           <p className="text-slate-500 text-sm mt-0.5">Manage your organization preferences</p>
         </div>
       </div>
 
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100">
+        <div className="px-4 sm:px-6 py-4 border-b border-slate-100">
           <div className="flex items-center gap-2">
             <AlertTriangle size={15} className="text-amber-500" />
             <h2 className="text-sm font-semibold text-slate-800">Inventory Alerts</h2>
@@ -49,7 +49,7 @@ export default function Settings() {
           <p className="text-xs text-slate-500 mt-0.5">Configure when products are flagged as low stock</p>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {loading ? (
             <div className="animate-pulse space-y-3">
               <div className="h-4 bg-slate-100 rounded w-48" />
@@ -90,7 +90,7 @@ export default function Settings() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60 transition-colors shadow-sm"
+                className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60 transition-colors shadow-sm"
               >
                 {isSubmitting ? 'Saving…' : 'Save Settings'}
               </button>

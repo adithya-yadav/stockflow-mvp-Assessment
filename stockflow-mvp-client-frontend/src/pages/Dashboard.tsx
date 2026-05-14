@@ -47,25 +47,25 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-8 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <div className="flex items-center gap-2 mb-1">
           <TrendingUp size={18} className="text-indigo-500" />
           <p className="text-sm text-indigo-600 font-medium">{organization?.name}</p>
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Dashboard</h1>
         <p className="text-slate-500 text-sm mt-1">Overview of your inventory status</p>
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 mb-6 sm:mb-8">
         {stats.map(({ label, value, icon: Icon, iconBg, iconColor, change }) => (
           <div
             key={label}
-            className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 hover:shadow-md transition-shadow"
           >
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-3 sm:mb-4">
               <div className={`${iconBg} w-10 h-10 rounded-xl flex items-center justify-center`}>
                 <Icon size={20} className={iconColor} />
               </div>
@@ -88,7 +88,7 @@ export default function Dashboard() {
 
       {/* Low stock table */}
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <AlertTriangle size={16} className="text-amber-500" />
             <h2 className="text-sm font-semibold text-slate-800">Low Stock Items</h2>
@@ -102,12 +102,12 @@ export default function Dashboard() {
             onClick={() => navigate('/products')}
             className="text-xs text-indigo-600 font-medium hover:underline"
           >
-            View all products →
+            View all →
           </button>
         </div>
 
         {loading ? (
-          <div className="p-6 space-y-3">
+          <div className="p-4 sm:p-6 space-y-3">
             {[1, 2, 3].map((i) => (
               <div key={i} className="animate-pulse flex gap-4">
                 <div className="h-4 bg-slate-100 rounded flex-1" />
@@ -125,35 +125,60 @@ export default function Dashboard() {
             <p className="text-xs text-slate-400 mt-1">No low stock alerts at this time</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-50 text-left">
-                  <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Product</th>
-                  <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">SKU</th>
-                  <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Qty on Hand</th>
-                  <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Threshold</th>
-                  <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {data?.lowStockItems.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4 font-medium text-slate-800">{item.name}</td>
-                    <td className="px-6 py-4 text-slate-500 font-mono text-xs">{item.sku}</td>
-                    <td className="px-6 py-4 font-bold text-red-600">{item.quantity}</td>
-                    <td className="px-6 py-4 text-slate-500">{item.lowStockThreshold ?? '—'}</td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />
-                        Low Stock
-                      </span>
-                    </td>
+          <>
+            {/* Mobile cards */}
+            <div className="sm:hidden divide-y divide-slate-100">
+              {data?.lowStockItems.map((item) => (
+                <div key={item.id} className="px-4 py-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">{item.name}</p>
+                      <p className="text-xs font-mono text-slate-500 mt-0.5">{item.sku}</p>
+                    </div>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />
+                      Low Stock
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
+                    <span>Qty: <span className="font-bold text-red-600">{item.quantity}</span></span>
+                    <span>Threshold: {item.lowStockThreshold ?? '—'}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop table */}
+            <div className="hidden sm:block overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-left">
+                    <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Product</th>
+                    <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">SKU</th>
+                    <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Qty on Hand</th>
+                    <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Threshold</th>
+                    <th className="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {data?.lowStockItems.map((item) => (
+                    <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-slate-800">{item.name}</td>
+                      <td className="px-6 py-4 text-slate-500 font-mono text-xs">{item.sku}</td>
+                      <td className="px-6 py-4 font-bold text-red-600">{item.quantity}</td>
+                      <td className="px-6 py-4 text-slate-500">{item.lowStockThreshold ?? '—'}</td>
+                      <td className="px-6 py-4">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600">
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />
+                          Low Stock
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </div>

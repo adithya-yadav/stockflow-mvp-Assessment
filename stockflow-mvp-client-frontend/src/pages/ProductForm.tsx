@@ -69,7 +69,7 @@ export default function ProductForm() {
   const labelClass = 'block text-sm font-medium text-slate-700 mb-1.5'
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
+    <div className="p-4 sm:p-8 max-w-2xl mx-auto">
       {/* Header */}
       <button
         onClick={() => navigate('/products')}
@@ -79,12 +79,12 @@ export default function ProductForm() {
         Back to Products
       </button>
 
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+      <div className="flex items-center gap-3 mb-6 sm:mb-8">
+        <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center shrink-0">
           <Package size={20} className="text-indigo-600" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">
             {isEdit ? 'Edit Product' : 'Add Product'}
           </h1>
           <p className="text-slate-500 text-sm mt-0.5">
@@ -93,12 +93,12 @@ export default function ProductForm() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Basic info */}
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Basic Information</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Name <span className="text-red-400">*</span></label>
                 <input
@@ -119,7 +119,7 @@ export default function ProductForm() {
               </div>
             </div>
 
-            <div>
+            <div className="mt-4">
               <label className={labelClass}>Description <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
               <textarea
                 {...register('description')}
@@ -135,7 +135,7 @@ export default function ProductForm() {
           {/* Inventory */}
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Inventory</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Quantity on Hand <span className="text-red-400">*</span></label>
                 <input
@@ -166,7 +166,7 @@ export default function ProductForm() {
           {/* Pricing */}
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Pricing (Optional)</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Cost Price</label>
                 <div className="relative">
@@ -201,18 +201,18 @@ export default function ProductForm() {
           <div className="border-t border-slate-100" />
 
           {/* Actions */}
-          <div className="flex gap-3 pt-1">
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60 transition-colors shadow-sm"
+              className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold disabled:opacity-60 transition-colors shadow-sm"
             >
               {isSubmitting ? 'Saving…' : isEdit ? 'Save Changes' : 'Create Product'}
             </button>
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="px-6 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
             >
               Cancel
             </button>
